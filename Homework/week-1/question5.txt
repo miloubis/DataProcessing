@@ -1,0 +1,9 @@
+Question 5
+What is a so called branch in Git terms and why would you use it?
+
+When you create a branch in your project, you're creating an environment where you can try out new ideas.
+Changes you make on a branch don't affect the master branch, so you're free to experiment and commit changes.
+So the use of branches enables the feature to work together on a project easily.
+
+Milou Bisseling
+10427538
