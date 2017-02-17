@@ -128,7 +128,7 @@ window.onload = function() {
 	// DRAW TEMPERATURE LABLES ON Y-AXIS
 	var tick = graphheight / 7
 	var label = [-5, 0, 5, 10, 15, 20, 25, 30]
-	for (var i = 0; i < 13; i++) {
+	for (var i = 0; i < 8; i++) {
 		context.font = '10pt Arial';
 		context.textAlign = "center";
 		context.fillText(label[i], leftmargin - 20, topmargin + 5 + graphheight - tick*i);
