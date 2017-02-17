@@ -1,6 +1,6 @@
 // SYNCHRONOUS XMLHTTPREQUEST
 var myrequest = new XMLHttpRequest();
-var url = "https://github.com/miloubis/DataProcessing/blob/master/Homework/week-2/debilt.html";
+var url = "https://miloubis.github.io/DataProcessing/Homework/week-2/debilt.html";
 var alldata = null;
 myrequest.open("GET", url, false);
 myrequest.send();	
@@ -84,7 +84,6 @@ for (var i = 0; i < dates.length; i++) {
 window.onload = function() {
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d"); 
-    context.scale(0.7, 0.9);
 
     // DRAW X-AXIS
     context.beginPath();
@@ -128,7 +127,7 @@ window.onload = function() {
 	// DRAW TEMPERATURE LABLES ON Y-AXIS
 	var tick = graphheight / 7
 	var label = [-5, 0, 5, 10, 15, 20, 25, 30]
-	for (var i = 0; i < 13; i++) {
+	for (var i = 0; i < 8; i++) {
 		context.font = '10pt Arial';
 		context.textAlign = "center";
 		context.fillText(label[i], leftmargin - 20, topmargin + 5 + graphheight - tick*i);
@@ -155,5 +154,6 @@ window.onload = function() {
 	context.font = '14pt Arial';
 	context.fillText('Temperature (Celsius)', 300 * -1, 30);
 	context.restore();
+
     
 }
