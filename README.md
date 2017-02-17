@@ -1,3 +1,2 @@
 # Milou's Homework
-- [Week 2 using XMLHTTPRequests maar mislukte grafiek weergave](https://miloubis.github.io/DataProcessing/Homework/week-2/index.html)
-- [Week 2 alles in een file maar goede grafiek weergave](https://miloubis.github.io/DataProcessing/Homework/week-2/originalincldata.html)
+- [Week 2](https://miloubis.github.io/DataProcessing/Homework/week-2/index.html)
