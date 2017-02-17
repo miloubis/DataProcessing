@@ -33,9 +33,8 @@
 	<script type="text/javascript" src="graph.js"></script>
 	<a href="https://miloubis.github.io/DataProcessing/Homework/week-2/debilt.html">Datasource</a>    
     </body>
-</html>
 
-// DATA
+    <body>
 	<textarea id="rawdata">
 	20160101,   41
 	20160102,   54
@@ -408,22 +407,24 @@
 </html>
 
 <script>
+	// GRAPH PROPERTIES
 	leftmargin = 80
 	rightmargin = 40
 	topmargin = 40
 	bottommargin = 40
 	graphwidth = canvas.width - leftmargin - rightmargin
 	graphheight = canvas.height - topmargin - bottommargin
-
+	
+	// FUNCTION TO CHANGE DATE FORMAT FOR DATESTRING
 	function parseDate(str) {
 	    var y = str.substr(0,4),
 	        m = str.substr(4,2),
 	        d = str.substr(6,2);
 	    return new Date(y,m,d);
 	}
-
+	
+	// SPLIT DATA INTO TWO ARRAYS FOR TEMP AND DATE
 	var dateTemp = document.getElementById('rawdata').value.split('\n');
-
 
 	dates = []
 	temps = []
@@ -433,12 +434,15 @@
     	var chunks = dateTemp[i].split(/[\s,]+/);
     	var date = chunks[chunks.length-2];
     	var temp = chunks[chunks.length-1];
-    	var day = (parseDate(date).getTime()) / millisecondsinoneday - yearscorrection ;
+    	// TRANSFORM FROM MILLISECONDS TO DAYS OF THE YEAR
+	var day = (parseDate(date).getTime()) / millisecondsinoneday - yearscorrection ;
     	var day = Math.round(day) - 1;
-    	dates.push(day);
+    	// SAVE DATES TO ARRAY
+	dates.push(day);
+	// SAVE TEMPERATURES TO ARRAY
     	temps.push(parseInt(temp));
     }
-
+	// FUNCTION TO MAKE DATA POINTS IN THE RIGHT SCALE
 	function createTransform(domain, range){
 
 	    var domain_min = domain[0]
@@ -455,12 +459,13 @@
 	      return alpha * x + beta;
 	    }
 	}
-
+	// MINIMA AND MAXIMA OF DATES AND TEMPERATURES
 	tempmin = (Math.min.apply(null, temps));
 	tempmax = (Math.max.apply(null, temps));
 	datemin = (Math.min.apply(null, dates));
 	datemax = (Math.max.apply(null, dates));
-
+	
+	// SAVE TRANSFORMED DATES AND TEMPERATURES TO AN ARRAY
 	transformtemp = createTransform([300, -50], [bottommargin, graphheight + bottommargin]);
 	transformdate = createTransform([datemin, datemax], [leftmargin, graphwidth + leftmargin]);
 
@@ -473,24 +478,8 @@
 		transformedtemps.push(y);
 	}
 
-	console.log(tempmin);
-	console.log(tempmax);
-	console.log(temps);
-
-	console.log(Math.min.apply(null, transformedtemps));
-	console.log(Math.max.apply(null, transformedtemps));
-	console.log(transformedtemps);
-	console.log('1 graden ' +(transformedtemps[63]));
-	console.log('2 graden ' +(transformedtemps[60]));
-	console.log('3 graden ' +(transformedtemps[65]));
-	console.log('5 graden ' +(transformedtemps[12]));
-	console.log('9 graden ' +(transformedtemps[103]));
-	console.log('20 graden ' +(transformedtemps[156]));
-
-
-
-// HIER GA IK DAN TEKENEN ECHT
-    window.onload = function() {
+	// DRAW GRAPH
+        window.onload = function() {
 	    var canvas = document.getElementById("canvas");
 	    var context = canvas.getContext("2d"); 
 
@@ -554,10 +543,10 @@
 		context.font = '18pt Arial';
 		context.textAlign = "left";
 
-		//Title
+		//TITLE
 		context.fillText('Average Temperature De Bilt (NL) 2016', (graphwidth/2), 50);
 
-		//Y-axis text
+		//Y-AXIS TITLE
 		context.save();
 		context.rotate(-Math.PI / 2);
 		context.font = '14pt Arial';
