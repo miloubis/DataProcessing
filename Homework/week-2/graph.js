@@ -99,6 +99,14 @@ window.onload = function() {
 		context.lineTo(leftmargin + tick*i, bottommargin + graphheight + 5);
 		context.stroke();
 	}
+	
+	// DRAW LINE ON X-AXIS (X,Y)
+	context.beginPath();
+	context.fillStyle = 'red';
+	context.setLineDash([2,3]);
+	context.moveTo(leftmargin + ((graphheigth/7)*2), bottommargin + graphheight);
+	context.lineTo(leftmargin + ((graphheigth/7)*2), bottommargin + graphheight);
+	context.stroke();
 
 	// DRAW TEMPERATURE LABLES ON X-AXIS
 	var tick = graphwidth / 12
