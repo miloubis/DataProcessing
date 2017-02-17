@@ -84,7 +84,6 @@ for (var i = 0; i < dates.length; i++) {
 window.onload = function() {
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d"); 
-    context.scale(0.756, 0.9);
 
     // DRAW X-AXIS
     context.beginPath();
