@@ -100,16 +100,10 @@ window.onload = function() {
 		context.stroke();
 	}
 	
-	// DRAW LINE ON X-AXIS (X,Y)
-	context.beginPath();
-	context.fillStyle = 'red';
-	context.setLineDash([2,3]);
-	context.moveTo(leftmargin + ((graphheigth/7)*2), bottommargin + graphheight);
-	context.lineTo(leftmargin + ((graphheigth/7)*2), bottommargin + graphheight);
-	context.stroke();
+
 
 	// DRAW TEMPERATURE LABLES ON X-AXIS
-	var tick = graphwidth / 12
+	var tick = graphwidth / 12;
 	var label = ['','Jan', 'Feb', 'March', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Okt', 'Nov', 'Dec']
 	for (var i = 0; i < 13; i++) {
 		context.font = '10pt Arial';
