@@ -4,19 +4,39 @@
 //-->
 
 <!DOCTYPE html>
-
-<html >
+<meta charset="utf-8">
 	<head>
 		<title>Homework Week 3</title>
-	</head>
 		<link rel="stylesheet" type="text/css" href="barchart.css">
+	</head>
 	<body>
-		<h1>Homework eek 3</h1>
+		<h1>Homework week 3</h1>
 		<h2>Bar Chart Using D3</h2>
 		<p>Milou Bisseling, 10427538</p>
-		<p>Amount of Multiple Births in the Netherlands 1980-2015</p>
-		<canvas id="canvas" width="800" height="600">Multiple Births in the Netherlands</canvas>
+		<h3>Amount of Multiple Births in the Netherlands 1980-2015</h3>
+		<svg class="chart"></svg>
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 		<script type="text/javascript" src="barchart.js"></script>
-		<a href="http://statline.cbs.nl/Statweb/publication/?DM=SLNL&PA=37422ned&D1=39&D2=30-65&HDR=G1&STB=T&VW=T">Datasource</a>
+		<div class="container">
+			<h4>Aantal meerlingen neemt af</h4>
+			<p class ="block">
+				Sinds 2003 daalt het aantal meerlinggeboorten in Nederland. 
+				Doordat er de laatste jaren vaak maar 1 eicel wordt teruggeplaatst 
+				bij in-vitrofertilisatie is het aantal tweelingen fors afgenomen.
+			</p>
+			<p class ="block">
+				In 2009 zijn in ons land ongeveer 3 200 meerlingen geboren. 
+				Meestal zijn dit tweelingen. Het aantal geboorten van drie(-plus)lingen bedroeg slechts 44. 
+				Het aantal tweelinggeboorten noteerde in 2002 een record van 3,7 duizend. 
+				Daarna is het aantal afgenomen. Het aantal drie(-plus)lingen bereikte al in 1991 zijn piek. 
+				Toen werden er 124 drie(-plus)lingen geboren. 
+			</p>
+			<p class ="block">
+				Het aandeel meerlinggeboorten is vanaf het midden van de jaren zeventig fors toegenomen: van 10 per 1 000 geboorten in 1975 naar 19 per 1 000 in 2002. Dit is vooral toe te schrijven aan in-vitrofertilisatie (ivf), een techniek die sinds ongeveer dertig jaar steeds vaker wordt toegepast. Ook het toenemende aantal oudere moeders, die een hogere kans hebben op een meerling, speelde een bescheiden rol. Het totale aantal geboren kinderen lag in 2009 niet ver boven het aantal van medio jaren zeventig. 
+			</p>
+		</div>
+		<a href="http://statline.cbs.nl/Statweb/publication/?DM=SLNL&PA=37422ned&D1=39&D2=30-65&HDR=G1&STB=T&VW=T">
+			Datascource: CBS Geboorte Kerncijfers</a>
 	</body>
 </html>

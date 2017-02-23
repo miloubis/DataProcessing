@@ -3,35 +3,84 @@
 	Student number: 10427538
 //-->
 
-h1 {
+title {
 	font-family: Arial;
 	color: black; 
+	text-align: center; 
+}
+
+h1 {
+	font-family: Arial;
+	text-align: center; 
 }
 		
 h2 {
 	font-family: Arial;
-	color: black; 
+	text-align: center; 
 }
 
-p {
+h3 {
+	font-family: Arial;
+	text-align: center; 
+}
+
+h4 {
+	font-family: Arial;
 	text-align: left; 
-	font-family: Arial;
 }
 
-canvas {
-	text-align: left;
-	padding-left: 0;
-	padding-right: 0;
-	margin-left: 0;
-	margin-right: 0;
-	display: block;
-	width: 800px;
-	height: 600px;
-	border: 1px solid blue;
-}
-		
-a {
-	color: black; 
+p { 
 	font-family: Arial;
+	text-align: center; 
+	font-size: 80%;
 }
-		
+
+a {
+	font-family: Arial;
+	text-align: center;
+	font-size: 80%;  
+}
+
+div.container {
+	width: 550px;
+    display: block;
+    margin: 0 auto;
+    text-align: left;
+}
+
+p.block { 
+	font-family: Arial;
+	text-align: left; 
+	font-size: 80%;
+}
+
+svg {
+	align-content: center;
+	margin: auto;
+}
+
+.bar {
+    fill: gold
+}
+
+.bar:hover {
+    fill: goldenrod;
+}
+
+.axis {
+	  font-family: Arial;
+	  font-size: 11px;
+}
+
+.axis path,
+.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+}
+
+.d3-tip {
+  font-size: 60%;
+  font-family: arial;
+}
+
