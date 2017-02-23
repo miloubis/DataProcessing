@@ -9,15 +9,14 @@ import json
 
 inputfile = 'data.csv'
 outputfile = 'data.json'
-fieldnames = ("Jaar","Aantal_meerlingen")
+fieldnames = ("Jaar", "Aantal_meerlingen")
 
 csvfile = open(inputfile, 'r')
-jsonfile = open(outputfile, 'w')
-
 reader = csv.DictReader(csvfile, fieldnames)
-for row in reader:
-    json.dump(row, jsonfile)
-    jsonfile.write('\n')
+
+jsonfile = open(outputfile, 'w')
+data = json.dumps([row for row in reader])
+jsonfile.write(data)
 
 csvfile.close()
 jsonfile.close()
