@@ -24,23 +24,20 @@ var yAxis = d3.svg.axis()
 
 // Define tooltip
 var tip = d3.tip()
-  .attr('class', 'd3-tip')
-  .html(function(d) {
-    return "<span>" + d.Aantal_meerlingen + "</span>";
-  })
-
+    .attr('class', 'd3-tip')
+    .html(function(d) {
+    return "<span>" + d.Aantal_meerlingen + "</span>";})
 
 // Add the SVG element
 var svg = d3.select("body").append("svg")
-    	.attr("width", width + margin.left + margin.right)
-    	.attr("height", height + margin.top + margin.bottom)
-  	.append("g")
-    	.attr("transform", 
-          "translate(" + margin.left + "," + margin.top + ")");
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 svg.call(tip);
 
-// load the data
+// Load the data from json file
 d3.json("data.json", function(error, data) {
 
     data.forEach(function(d) {
@@ -48,11 +45,11 @@ d3.json("data.json", function(error, data) {
         d.Aantal_meerlingen = +d.Aantal_meerlingen;
     });
 	
-  // scale the range of the data
+  // Scale the range of the data
   x.domain(data.map(function(d) { return d.Jaar; }));
   y.domain([0, d3.max(data, function(d) { return d.Aantal_meerlingen; })]);
 
-  // add axis
+  // Add axis to svg
   	svg.append("g")
       	.attr("class", "x axis")
       	.attr("transform", "translate(0," + height + ")")
@@ -73,7 +70,7 @@ d3.json("data.json", function(error, data) {
       		.style("text-anchor", "end")
       		.text("Aantal meerlingen");
 
-// Add bar chart
+// Add bars to the svg
 var bars = svg.selectAll("bar")
     .data(data)
     .enter()
