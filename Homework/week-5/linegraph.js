@@ -1,6 +1,7 @@
 // Name: Milou Bisseling
 // Student number: 10427538
 
+// Set size and margins
 var margin = {top: 20, right: 55, bottom: 30, left: 60},
 	width  = 1000 - margin.left - margin.right,
 	height = 650  - margin.top  - margin.bottom;
