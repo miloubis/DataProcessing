@@ -8,18 +8,13 @@ title, h1, h2, h3 {
 	text-align: center; 
 }
 
-h4 {
-	font-family: Arial;
-	text-align: left; 
-}
-
 p, a { 
 	font-family: Arial;
 	text-align: center; 
 	font-size: 80%;
 }
 
-div {
+body {
     font: 9px sans-serif;
     color: #121401;
 }
