@@ -19,6 +19,11 @@ p, a {
 	font-size: 80%;
 }
 
+script {
+    font: 9px sans-serif;
+    color: #121401;
+}
+
 .axis path,
 .axis line {
 fill: none;
