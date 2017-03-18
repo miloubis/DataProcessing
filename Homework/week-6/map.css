@@ -1,0 +1,33 @@
+/*
+	Name: Milou Bisseling
+	Student number: 10427538
+*/
+
+title, h1, h2, h3 {
+	font-family: Arial; 
+	text-align: center; 
+}
+
+h4 {
+	font-family: Arial;
+	text-align: left; 
+}
+
+p, a { 
+	font-family: Arial;
+	text-align: center; 
+	font-size: 80%;
+}
+
+div.textcontainer {
+	width: 550px;
+    display: block;
+    margin: auto;
+    text-align: left;
+}
+
+p.block { 
+	font-family: Arial;
+	text-align: left; 
+	font-size: 80%;
+}
