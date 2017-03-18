@@ -3,3 +3,4 @@
 - [Week 3](https://miloubis.github.io/DataProcessing/Homework/week-3/barchart.html)
 - [Week 4](https://miloubis.github.io/DataProcessing/Homework/week-4/map.html)
 - [Week 5](https://miloubis.github.io/DataProcessing/Homework/week-5/linegraph.html)
+- [Week 6](https://miloubis.github.io/DataProcessing/Homework/week-6/map.html)
