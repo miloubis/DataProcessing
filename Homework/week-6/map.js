@@ -86,7 +86,7 @@ var map = new Datamap({
             // Include country and raw data in tooltip
             return ['<div class="hoverinfo">',
                 '<strong>', geo.properties.name, '</strong>',
-                '<br>Income Level: ', data.Incomelevel, '',
+                '<br>', data.Incomelevel, '',
                 '</div>'].join('');
         	}    	
     	}
