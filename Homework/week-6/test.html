@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+<script src="http://d3js.org/d3.v4.min.js"></script>
+<script>
+
+
+var series2 = [];
+	d3.json("women.json", function(error, data) {
+	    if (error) throw (error);
+	    data.forEach(function(d) {
+		    // Create new array with prefered format
+		    series2.push([d["ISO"], d["Jaar"], +d["Female"], +d["Male"]]);
+		});
+		console.log(series2);
+		
+		var dataset2 = {};
+
+		    // Fill dataset in appropriate format
+		    series2.forEach(function(item){ 
+		        var iso = item[0],
+		        	jaar = item[1]
+		            female = item[2];
+		            male = item[3]
+		        dataset2[iso] = {Jaar: jaar, Female: female, Male: male };
+		    });
+		    console.log(dataset2);
+});
+
+
+
+
+</script>
+</body>

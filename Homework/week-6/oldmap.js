@@ -6,7 +6,7 @@ window.onload = function() {
 
 	// Load the data from json file
 	var series = [];
-	d3.json("worldbankdata.json", function(error, data) {
+	d3.json("data/worldbankdata.json", function(error, data) {
 	    if (error) throw (error);
 	    data.forEach(function(d) {
 	    // Create new array with prefered format
@@ -40,9 +40,9 @@ window.onload = function() {
 		    },
 		    done: function(datamap) {
 	            datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
-	                alert(geography.properties.name);
+	                alert(geography.id);
 	            });
-	        }    
+	        },    
 		    geographyConfig: {
 		    	borderOpacity: 1,
 		    	highlightBorderWidth: 2,
@@ -81,6 +81,17 @@ window.onload = function() {
 		        }    	
 		    }
 		});
+		var l = {
+	    	legentTitle: "Income levels",
+	    	defaultFillName: "No data",
+	    	labels: {
+	    		LIC: "Low Income",
+	    		LMC: "Lower Middle Income",
+	    		UMC: "Upper Middle Income",
+	    		HIC: "High Income",
+		    },
+		};
+		map.legend(l);
 	});
 };
 

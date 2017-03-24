@@ -2,6 +2,15 @@
 // Student number: 10427538
 // Inspired on the bost.ocks website: https://bost.ocks.org/mike/bar/3/
 
+
+// Load the data from json file
+d3.json("data.json", function(error, data) {
+    if (error) throw (error);
+    data.forEach(function(d) {
+        d.Jaar = d.Jaar;
+        d.Aantal_meerlingen = +d.Aantal_meerlingen;
+    });
+
 // Set the dimensions of the canvas
 var margin = {top: 20, right: 20, bottom: 60, left: 30},
     width = 600 - margin.left - margin.right,
@@ -36,14 +45,6 @@ var svg = d3.select("body").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 svg.call(tip);
-
-// Load the data from json file
-d3.json("data.json", function(error, data) {
-
-    data.forEach(function(d) {
-        d.Jaar = d.Jaar;
-        d.Aantal_meerlingen = +d.Aantal_meerlingen;
-    });
 	
   // Scale the range of the data
   x.domain(data.map(function(d) { return d.Jaar; }));
