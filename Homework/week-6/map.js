@@ -4,44 +4,167 @@
 
 d3.queue()
 	.defer(d3.json, 'data/worldbankdata.json')
-	.defer(d3.json, 'data/womeninparliament.json')
+	.defer(d3.json, 'women.json')
 	.await(analyze);
 
-function analyze(error, worldbankdata, womeninparliament) {
-	if (error) {
-		console.log(error); 
-	}
-		worlddata = worldbankdata
-		var series = [];
-		worlddata.forEach(function(d) {
-		    // Create new array with prefered format
-		    series.push([d["id"], d["incomeLevel"]["id"], d["name"], d["incomeLevel"]["value"]]);
-		});
+function analyze(error, worldbankdata, women) {
+    if (error) throw error;
+    makeMap(worldbankdata);
+    makeBarchart(women, "NLD");
+}
 
-		// Create variable for dataset in the appropriate format
-		var dataset = {};
+function makeBarchart(data, country) {
 
-		    // Fill dataset in appropriate format
-		    series.forEach(function(item){ 
-		        var iso = item[0],
-		        	fillKey = item[1]
-		            country = item[2];
-		            incomeLevel = item[3]
-	        dataset[iso] = {fillKey: fillKey, Country: country, Incomelevel: incomeLevel };
-		});
+    var margin = {top: (parseInt(d3.select('body').style('width'), 10)/10), right: (parseInt(d3.select('body').style('width'), 10)/20), bottom: (parseInt(d3.select('body').style('width'), 10)/5), left: (parseInt(d3.select('body').style('width'), 10)/20)},
+    width = parseInt(d3.select('body').style('width'), 10) - margin.left - margin.right,
+    height = parseInt(d3.select('body').style('height'), 10) - margin.top - margin.bottom;
 
-		womendata = womeninparliament
-		var series2 = [];
-		womendata.forEach(function(d) {
-			series2.push([d["countryid"], d["1997"], d["1998"], d["1999"], d["2000"], d["2001"], d["2002"],
-			d["2003"], d["2004"], d["2005"], d["2006"], d["2007"], d["2008"], d["2009"], d["2010"], d["2011"], 
-			d["2012"], d["2013"], d["2014"], d["2015"], d["2016"]]);
-		})
+    var x0 = d3.scale.ordinal()
+        .rangeRoundBands([0, width], .1);
 
-		console.log(series2);
+    var x1 = d3.scale.ordinal();
+
+    var y = d3.scale.linear()
+        .range([height, 0]);
+
+    var colorRange = d3.scale.category20();
+    var color = d3.scale.ordinal()
+        .range(["#ca0020","#0571b0" ]);
+
+    var xAxis = d3.svg.axis()
+        .scale(x0)
+        .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .tickFormat(d3.format(".2s"));
+
+    var divTooltip = d3.select("body").append("div").attr("class", "toolTip");
+
+
+    var svg = d3.select("body").append("svg")
+        .attr("class", "barchart")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    data.forEach(function(d) {
+          d["Female"] = +d["Female"]
+          d["Male"] = +d["Male"]
+    });
+
+    function countryData(data, country) {
+        return data.filter(function(d) {return d["ISO"] === country});
+    };
+
+    data = countryData(data, country);
+
+    var options = d3.keys(data[0]).filter(function(key) { return key !== "Jaar" && key !== "ISO"; });
+
+
+    data.forEach(function(d) {
+        d.valores = options.map(function(name) { return {name: name, value: +d[name]}; });
+    });
+
+    x0.domain(data.map(function(d) { return d.Jaar; }));
+    x1.domain(options).rangeRoundBands([0, x0.rangeBand()]);
+    y.domain([0, d3.max(data, function(d) { return d3.max(d.valores, function(d) { return d.value; }); })]);
+
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .text("Gender in National Parliaments %");
+
+    var bar = svg.selectAll(".bar")
+        .data(data)
+        .enter().append("g")
+        .attr("class", "rect")
+        .attr("transform", function(d) { return "translate(" + x0(d.Jaar) + ",0)"; });
+
+    bar.selectAll("rect")
+        .data(function(d) { return d.valores; })
+        .enter().append("rect")
+        .attr("width", x1.rangeBand())
+        .attr("x", function(d) { return x1(d.name); })
+        .attr("y", function(d) { return y(d.value); })
+        .attr("value", function(d){return d.name;})
+        .attr("height", function(d) { return height - y(d.value); })
+        .style("fill", function(d) { return color(d.name); });
+
+    bar
+        .on("mousemove", function(d) {
+            divTooltip.style("left", d3.event.pageX+10+"px");
+            divTooltip.style("top", d3.event.pageY-25+"px");
+            divTooltip.style("display", "inline-block");
+            var x = d3.event.pageX, y = d3.event.pageY
+            var elements = document.querySelectorAll(':hover');
+            l = elements.length
+            l = l-1
+            elementData = elements[l].__data__
+            divTooltip.html((d.Jaar)+"<br>"+elementData.name+"<br>"+elementData.value+"%");
+        });
+    bar
+        .on("mouseout", function(d) {
+            divTooltip.style("display", "none");
+        });
+
+
+    var legend = svg.selectAll(".legend")
+        .data(options.slice())
+        .enter().append("g")
+        .attr("class", "legend")
+        .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+    legend.append("rect")
+        .attr("x", width - 18)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", color);
+
+    legend.append("text")
+        .attr("x", width - 24)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(function(d) { return d; });
+};
+
+function makeMap(worldbankdata)
+{
+	worlddata = worldbankdata
+	var series = [];
+	worlddata.forEach(function(d) {
+	    // Create new array with prefered format
+	    series.push([d["id"], d["incomeLevel"]["id"], d["name"], d["incomeLevel"]["value"]]);
+	});
+
+	// Create variable for dataset in the appropriate format
+	var dataset = {};
+
+	    // Fill dataset in appropriate format
+	    series.forEach(function(item){ 
+	        var iso = item[0],
+	        	fillKey = item[1],
+	            country = item[2],
+	            incomeLevel = item[3]
+            dataset[iso] = {fillKey: fillKey, Country: country, Incomelevel: incomeLevel 
+        };
+});
 
 // Render datamap
-var map = new Datamap({
+var map = new Datamap( {
     element: document.getElementById('container'),
     scope: 'world',
     projection: 'mercator',
@@ -52,7 +175,18 @@ var map = new Datamap({
     	LMC: '#de2d26',
     	LIC: '#a50f15',
     	defaultFill: '#afafaf' 
-    },    
+    },
+    done: function(datamap) {
+        datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
+            d3.select("svg.barchart").remove();
+            /*
+            makeBarchart(data, geo.id)
+            var chosenCountry = "NLD"
+            makeBarchart(women, chosenCountry)
+        */
+        });
+
+    },      
     geographyConfig: {
     	borderOpacity: 1,
     	highlightBorderWidth: 2,
@@ -91,7 +225,21 @@ var map = new Datamap({
         	}    	
     	}
 	});
+    var l = {
+    legentTitle: "Income levels",
+    defaultFillName: "No data",
+    labels: {
+        LIC: "Low Income",
+        LMC: "Lower Middle Income",
+        UMC: "Upper Middle Income",
+        HIC: "High Income",
+    },
+};
+map.legend(l);
+
 }
+
+
 
 
 
